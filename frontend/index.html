@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bernie Time Tracker</title>
+  <link rel="stylesheet" href="/frontend/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Bernie Time Tracker</h1>
+  </header>
+
+  <main class="app-main">
+    <section class="panel" aria-labelledby="entry-form-heading">
+      <div class="panel-header">
+        <h2 id="entry-form-heading"><span id="form-mode-label">Create</span> Time Entry</h2>
+        <button id="cancel-edit-btn" class="link-button" type="button" hidden>Cancel edit</button>
+      </div>
+      <form id="time-entry-form" novalidate>
+        <input type="hidden" id="entry-id" />
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="entry-date">Date<span class="required">*</span></label>
+            <input type="date" id="entry-date" name="date" required />
+            <p class="field-error" data-error-for="entry-date"></p>
+          </div>
+          <div class="form-field">
+            <label for="person-name">Person<span class="required">*</span></label>
+            <input type="text" id="person-name" name="personName" required />
+            <p class="field-error" data-error-for="person-name"></p>
+          </div>
+          <div class="form-field">
+            <label for="team-name">Team<span class="required">*</span></label>
+            <input type="text" id="team-name" name="teamName" required />
+            <p class="field-error" data-error-for="team-name"></p>
+          </div>
+          <div class="form-field">
+            <label for="duration-hours">Duration (hours)<span class="required">*</span></label>
+            <input type="number" id="duration-hours" name="durationHours" min="0.25" step="0.25" required />
+            <p class="field-error" data-error-for="duration-hours"></p>
+          </div>
+          <div class="form-field form-field-full">
+            <label for="activity-description">Activity description<span class="required">*</span></label>
+            <textarea id="activity-description" name="activityDescription" rows="2" required></textarea>
+            <p class="field-error" data-error-for="activity-description"></p>
+          </div>
+          <div class="form-field form-field-full">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary" id="submit-btn">Save entry</button>
+          <button type="reset" class="btn secondary" id="reset-btn">Clear</button>
+        </div>
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="filters-heading">
+      <div class="panel-header">
+        <h2 id="filters-heading">Filters</h2>
+        <button id="clear-filters-btn" class="link-button" type="button">Clear filters</button>
+      </div>
+      <form id="filters-form">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="filter-date-from">From date</label>
+            <input type="date" id="filter-date-from" name="date_from" />
+          </div>
+          <div class="form-field">
+            <label for="filter-date-to">To date</label>
+            <input type="date" id="filter-date-to" name="date_to" />
+          </div>
+          <div class="form-field">
+            <label for="filter-team">Team</label>
+            <input type="text" id="filter-team" name="team" placeholder="e.g. Backend" />
+          </div>
+          <div class="form-field">
+            <label for="filter-person">Person</label>
+            <input type="text" id="filter-person" name="person" placeholder="e.g. Alice" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn">Apply filters</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="entries-heading">
+      <div class="panel-header">
+        <h2 id="entries-heading">Time entries</h2>
+        <button id="refresh-btn" class="link-button" type="button">Refresh</button>
+      </div>
+      <div id="entries-status" class="entries-status" role="status" aria-live="polite"></div>
+      <div class="table-wrapper">
+        <table class="entries-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Person</th>
+              <th scope="col">Team</th>
+              <th scope="col">Activity</th>
+              <th scope="col">Hours</th>
+              <th scope="col">Notes</th>
+              <th scope="col" class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="entries-tbody">
+            <!-- rows injected by app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="/frontend/app.js"></script>
+</body>
+</html>
